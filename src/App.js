@@ -24,7 +24,7 @@ function App() {
         foot on the moon or when rovers were sent to roam around on Mars.
       </TextExpander>
 
-      <TextExpander expanded={true} className="box">
+      <TextExpander className="box">
         Space missions have given us incredible insights into our universe and
         have inspired future generations to keep reaching for the stars. Space
         travel is a pretty cool thing to think about. Who knows what we'll
@@ -35,13 +35,12 @@ function App() {
 }
 
 function TextExpander({
-  collapsedNumWords,
+  collapsedNumWords = 10,
   expandButtonText = "Show More",
   collapseButtonText = "Show Less",
   buttonColor = "blue",
   className,
   children,
-  expand = false,
 }) {
   const [expanded, setExpanded] = useState("false");
 
@@ -49,9 +48,15 @@ function TextExpander({
     setExpanded(!expanded);
   }
 
+  function collapsedNumWords(numOfWords) {
+    const words = children.split(" ");
+    const newWords = words.slice(0, numOfWords);
+    return newWords.join(" ");
+  }
+
   return (
     <div className={className}>
-      <p>{expanded ? children : null}</p>
+      <p>{expanded ? children : `${collapsedNumWords(10)}...`}</p>
       <span role="button" style={{ color: buttonColor }} onClick={handleExpand}>
         {expanded ? collapseButtonText : expandButtonText}
       </span>
