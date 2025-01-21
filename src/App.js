@@ -35,12 +35,12 @@ function App() {
 }
 
 function TextExpander({
-  collapsedNumWords = 10,
   expandButtonText = "Show More",
   collapseButtonText = "Show Less",
   buttonColor = "blue",
   className,
   children,
+  collapsedNumWords = 10,
 }) {
   const [expanded, setExpanded] = useState("false");
 
@@ -48,7 +48,7 @@ function TextExpander({
     setExpanded(!expanded);
   }
 
-  function collapsedNumWords(numOfWords) {
+  function collapseWords(numOfWords) {
     const words = children.split(" ");
     const newWords = words.slice(0, numOfWords);
     return newWords.join(" ");
@@ -56,10 +56,16 @@ function TextExpander({
 
   return (
     <div className={className}>
-      <p>{expanded ? children : `${collapsedNumWords(10)}...`}</p>
-      <span role="button" style={{ color: buttonColor }} onClick={handleExpand}>
-        {expanded ? collapseButtonText : expandButtonText}
-      </span>
+      <p>
+        {expanded ? children : `${collapseWords(collapsedNumWords)}...`}
+        <span
+          role="button"
+          style={{ color: buttonColor }}
+          onClick={handleExpand}
+        >
+          {expanded ? collapseButtonText : expandButtonText}
+        </span>
+      </p>
     </div>
   );
 }
