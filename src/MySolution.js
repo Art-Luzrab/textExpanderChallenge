@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./styles.css";
-function App() {
+function MySolution() {
   return (
     <div>
       <TextExpander>
@@ -42,11 +42,7 @@ function TextExpander({
   children,
   collapsedNumWords = 10,
 }) {
-  const [expanded, setExpanded] = useState("false");
-
-  function handleExpand() {
-    setExpanded(!expanded);
-  }
+  const [expanded, setExpanded] = useState(false);
 
   function collapseWords(numOfWords) {
     const words = children.split(" ");
@@ -61,7 +57,7 @@ function TextExpander({
         <span
           role="button"
           style={{ color: buttonColor }}
-          onClick={handleExpand}
+          onClick={() => setExpanded((exp) => !exp)}
         >
           {expanded ? collapseButtonText : expandButtonText}
         </span>
@@ -70,4 +66,4 @@ function TextExpander({
   );
 }
 
-export default App;
+export default MySolution;
